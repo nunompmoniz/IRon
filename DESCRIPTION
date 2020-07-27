@@ -1,0 +1,20 @@
+Package: IRon
+Type: Package
+Title: Imbalanced Regression Framework
+Version: 0.1.0
+Authors@R: c(person("Rita", "P. Ribeiro", email = "rpribeiro@dcc.fc.up.pt",
+                                        role = c("aut", "cre")),
+           person("Nuno", "Moniz", email = "nmmoniz@inesctec.pt",
+                                        role = "aut"),
+           person("Miguel", "Margarido", email = "miguelmargarido@gmail.com",
+                                        role = "ctb"))
+Description: More about what it does (maybe more than one line).
+    Use four spaces when indenting paragraphs within the Description.
+License: CC0
+Encoding: UTF-8
+LazyData: true
+LinkingTo: Rcpp
+Imports: Rcpp, stats, plyr, ggpubr, gridExtra, ggplot2, robustbase, plot3D, fields, scam
+Suggests: rpart, e1071, earth, randomForest, mgcv
+RoxygenNote: 7.1.1
+NeedsCompilation: yes
