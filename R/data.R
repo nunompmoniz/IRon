@@ -19,3 +19,29 @@
 #' @examples
 #' data(accel)
 #' \donttest{head(accel)}
+
+#' NO2Emissions
+#'
+#' The data are a subsample of 500 observations from a data set that originate in a study where air pollution at a road is
+#' related to traffic volume and meteorological variables, collected by the Norwegian Public Roads Administration.
+#' The response variable (column 1) consist of hourly values of the logarithm of the concentration of NO2 (particles),
+#' measured at Alnabru in Oslo, Norway, between October 2001 and August 2003. The predictor variables (columns 2 to 8)
+#' are the logarithm of the number of cars per hour, temperature $2$ meter above ground (degree C), wind speed
+#' (meters/second), the temperature difference between $25$ and $2$ meters above ground (degree C),
+#' wind direction (degrees between 0 and 360), hour of day and day number from October 1. 2001.
+#'
+#' @docType data
+#'
+#' @aliases NO2Emissions
+#'
+#' @usage data(NO2Emissions)
+#'
+#' @format A \code{"data.frame"} structure with 500 observations, 8 numerical variables
+#'
+#' @keywords datasets
+#'
+#' @source \href{http://lib.stat.cmu.edu/datasets/}{StatLib}
+#'
+#' @examples
+#' data(NO2Emissions)
+#' \donttest{head(NO2Emissions)}

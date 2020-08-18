@@ -15,6 +15,6 @@ Encoding: UTF-8
 LazyData: true
 LinkingTo: Rcpp
 Imports: Rcpp, stats, plyr, ggpubr, gridExtra, ggplot2, robustbase, plot3D, fields, scam
-Suggests: rpart, e1071, earth, randomForest, mgcv
+Suggests: rpart, e1071, earth, randomForest, mgcv, reshape
 RoxygenNote: 7.1.1
 NeedsCompilation: yes
