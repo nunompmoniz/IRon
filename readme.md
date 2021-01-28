@@ -43,5 +43,5 @@ library(IRon)
 References
 ----------
 
--   Rita Ribeiro and Nuno Moniz (2020). "Imbalanced Regression and Extreme Value Prediction". Machine Learning. Springer (submitted)
+-   Rita Ribeiro and Nuno Moniz (2020). "Imbalanced Regression and Extreme Value Prediction". Machine Learning. 109, pp 1803–1835, Springer. https://doi.org/10.1007/s10994-020-05900-9
 -   Luís Torgo and Rita Ribeiro (2007). "Utility-based regression". Proceedings of ECML/PKDD 2007, J. N. Kok, J. Koronacki, R. Lopez deMantaras, S. Matwin, D. Mladenic, and A. Skowron, Eds., pp. 597–604
