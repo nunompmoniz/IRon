@@ -65,6 +65,7 @@ ser <- function(trues, preds, phi.trues=NULL, ph=NULL, t=0) {
 #' @param m.name Name of the model to be appended in the plot title
 #' @param step Relevance intervals between 0 (min) and 1 (max). Default 0.001
 #' @param return.err Boolean to indicate if the errors at each subset of increasing relevance should be returned. Default is FALSE
+#' @param norm Normalize the SERA values for internal optimisation only (TRUE/FALSE)
 #'
 #' @export
 #'
@@ -99,7 +100,8 @@ ser <- function(trues, preds, phi.trues=NULL, ph=NULL, t=0) {
 #' sera(trues,preds,phi.trues,pl=TRUE, m.name="Regression Trees")
 #' sera(trues,preds,phi.trues,pl=TRUE, return.err=TRUE)
 #' }
-sera <- function(trues, preds, phi.trues=NULL, ph=NULL, pl=FALSE, m.name="Model", step=0.001, return.err=FALSE) {
+sera <- function(trues, preds, phi.trues=NULL, ph=NULL, pl=FALSE,
+                 m.name="Model", step=0.001, return.err=FALSE, norm=FALSE) {
 
   if(!is.data.frame(preds)) preds <- as.data.frame(preds)
 
@@ -116,6 +118,8 @@ sera <- function(trues, preds, phi.trues=NULL, ph=NULL, pl=FALSE, m.name="Model"
   errors <- sapply(ms,FUN=function(m) sapply(th, FUN = function(x) sum((tbl[tbl$phi>=x,]$trues-tbl[tbl$phi>=x,m])^2)))
 
   if(any(is.na(errors))) errors[is.na(errors)] <- 0
+
+  if(norm) errors <- errors/errors[1]
 
   areas <- sapply(1:length(ms), FUN=function(m) sapply(2:length(th), FUN=function(x) step * (errors[x-1,m] + errors[x,m])/2 ))
   colnames(areas) <- ms

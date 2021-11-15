@@ -12,7 +12,8 @@ sera(
   pl = FALSE,
   m.name = "Model",
   step = 0.001,
-  return.err = FALSE
+  return.err = FALSE,
+  norm = FALSE
 )
 }
 \arguments{
@@ -31,6 +32,8 @@ sera(
 \item{step}{Relevance intervals between 0 (min) and 1 (max). Default 0.001}
 
 \item{return.err}{Boolean to indicate if the errors at each subset of increasing relevance should be returned. Default is FALSE}
+
+\item{norm}{Normalize the SERA values for internal optimisation only (TRUE/FALSE)}
 }
 \value{
 Value for the area under the relevance-squared error curve (SERA)
