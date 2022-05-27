@@ -21,7 +21,6 @@ NULL
 #' @export
 #'
 #' @examples
-#' \dontrun{
 #' library(IRon)
 #' data(accel)
 #'
@@ -34,7 +33,6 @@ NULL
 #' phis <- phi(test$acceleration,phi.parms=ph)
 #'
 #' plot(test$acceleration,phis,xlab="Y",ylab="Relevance")
-#' }
 phi <- function(y, phi.parms=NULL, only.phi=TRUE) {
 
   phi.parms <- if(is.null(phi.parms)) phi.control(y) else phi.parms
@@ -76,7 +74,6 @@ phi <- function(y, phi.parms=NULL, only.phi=TRUE) {
 #' @export
 #'
 #' @examples
-#' \dontrun{
 #' library(IRon)
 #'
 #' data(accel)
@@ -86,11 +83,10 @@ phi <- function(y, phi.parms=NULL, only.phi=TRUE) {
 #' train <- accel[ind,]
 #' test <- accel[-ind,]
 #'
-#' ph <- phi.control(accel$acceleration); phiPlot(train$acceleration, ph)
-#' ph <- phi.control(accel$acceleration, extr.type="high"); phiPlot(train$acceleration, ph)
-#' ph <- phi.control(accel$acceleration, method="range",
-#'   control.pts=matrix(c(10,0,0,15,1,0),byrow=TRUE,ncol=3)); phiPlot(train$acceleration, ph)
-#' }
+#' ph <- phi.control(train$acceleration); phiPlot(test$acceleration, ph)
+#' ph <- phi.control(train$acceleration, extr.type="high"); phiPlot(test$acceleration, ph)
+#' ph <- phi.control(train$acceleration, method="range",
+#'   control.pts=matrix(c(10,0,0,15,1,0),byrow=TRUE,ncol=3)); phiPlot(test$acceleration, ph)
 #'
 phi.control <- function(y, phi.parms, method = phiMethods,
   extr.type = NULL, control.pts = NULL, asym = TRUE, ...) {

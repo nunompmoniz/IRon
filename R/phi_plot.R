@@ -1,6 +1,6 @@
 #' Plot of phi versus y and boxplot of y
 #'
-#' @description The phiPlot function uses a dataset ds containing many y values to produce a line plot of phi versus y and a boxplot of y, and aligns them, one above the other. The first extreme value on either side of the boxplot should correspond to the point where phi becomes exactly 1 on the line plot. This function is dependent on the robustbase, ggplot2, plyr and ggpubr packages, and will not work without them.
+#' @description The phiPlot function uses a dataset ds containing many y values to produce a line plot of phi versus y and a boxplot of y, and aligns them, one above the other. The first extreme value on either side of the boxplot should correspond to the point where phi becomes exactly 1 on the line plot. This function is dependent on the robustbase, ggplot2 and ggpubr packages, and will not work without them.
 #'
 #' @param ds Dataset of y values
 #' @param phi.parms The relevance function providing the data points where the pairs of values-relevance are known. Default is NULL
@@ -13,23 +13,21 @@
 #' @export
 #'
 #' @importFrom robustbase adjboxStats
-#' @importFrom ggplot2 ggplot aes geom_line geom_point ylab geom_boxplot ggplotGrob ggplot_gtable ggplot_build ylim
+#' @importFrom ggplot2 ggplot aes geom_line geom_point ylab geom_boxplot ggplotGrob ggplot_gtable ggplot_build ylim .data
 #' @importFrom ggpubr theme_transparent rotate
 #' @importFrom gridExtra grid.arrange
-#' @importFrom plyr ddply
 #' @importFrom grDevices boxplot.stats
 #'
 #' @examples
-#' \dontrun{
 #' ds <- rnorm(1000, 30, 10); phi.parms <- phi.control(ds); phiPlot(ds,phi.parms)
 #' ds <- rpois(100,3); phiPlot(ds)
-#' }
+#'
 phiPlot <- function(ds, phi.parms=NULL, limits=NULL, xlab="y", ...) {
 
   phis <- c()
 
   if(is.null(phi.parms)) {
-    warning("Deriving a relevance function from the data set in parameter ds ...")
+    message("Deriving a relevance function from the data set in parameter ds ...")
     phi.parms <- phi.control(ds, ...)
     phis <- phi(ds, phi.parms)
   } else {
@@ -43,9 +41,9 @@ phiPlot <- function(ds, phi.parms=NULL, limits=NULL, xlab="y", ...) {
   p1 <- NULL
 
   if(is.null(limits)) {
-    p1 <- ggplot(df,aes(x=y,y=phi)) + geom_line() + ylab(parse(text=paste("phi(",eval(xlab),")",sep=""))) + ylim(0,1) + ggplot2::xlab(xlab)
+    p1 <- ggplot(df,aes(x=.data$y,y=.data$phi)) + geom_line() + ylab(parse(text=paste("phi(",eval(xlab),")",sep=""))) + ylim(0,1) + ggplot2::xlab(xlab)
   } else {
-    p1 <- ggplot(df,aes(x=y,y=phi)) + geom_line() + ylab(parse(text=paste("phi(",eval(xlab),")",sep=""))) + ylim(0,1) + ggplot2::xlab(xlab) +
+    p1 <- ggplot(df,aes(x=.data$y,y=.data$phi)) + geom_line() + ylab(parse(text=paste("phi(",eval(xlab),")",sep=""))) + ylim(0,1) + ggplot2::xlab(xlab) +
       ggplot2::geom_vline(xintercept=limits,colour="darkgrey",linetype="dashed")
   }
 
@@ -60,15 +58,18 @@ phiPlot <- function(ds, phi.parms=NULL, limits=NULL, xlab="y", ...) {
   p2 <- NULL
 
   if(any(df$y<d$ymin) | any(df$y>d$ymax)) {
-    p2 <- ggplot(d, aes(factor(1))) + geom_boxplot(aes(ymin=d$ymin, ymax=d$ymax,
-      middle=d$middle, upper=d$upper, lower=d$lower), stat="identity", fill="lightgray") +
-      ggplot2::geom_errorbar(aes(ymin=d$ymin,ymax=d$ymax),linetype = 1,width = 0.5) +
-      geom_point(aes(y=y), data=subset(df, y < d$ymin | y > d$ymax)) +
+
+    df_sub <- subset(df, df$y < d$ymin | df$y > d$ymax)
+
+    p2 <- ggplot(d, aes(factor(1))) + geom_boxplot(data=d, aes(ymin=.data$ymin, ymax=.data$ymax,
+      middle=.data$middle, upper=.data$upper, lower=.data$lower), stat="identity", fill="lightgray") +
+      ggplot2::geom_errorbar(data = d, aes(ymin=.data$ymin,ymax=.data$ymax),linetype = 1,width = 0.5) +
+      geom_point(aes(y=.data$y), data=df_sub) +
       rotate() + theme_transparent()
   } else {
-    p2 <- ggplot(d, aes(factor(1))) + geom_boxplot(aes(ymin=d$ymin, ymax=d$ymax,
-      middle=d$middle, upper=d$upper, lower=d$lower), stat="identity", fill="lightgray") +
-      ggplot2::geom_errorbar(aes(ymin=d$ymin,ymax=d$ymax),linetype = 1,width = 0.5) +
+    p2 <- ggplot(d, aes(factor(1))) + geom_boxplot(data=d, aes(ymin=.data$ymin, ymax=.data$ymax,
+      middle=.data$middle, upper=.data$upper, lower=.data$lower), stat="identity", fill="lightgray") +
+      ggplot2::geom_errorbar(data = d, aes(ymin=.data$ymin,ymax=.data$ymax),linetype = 1,width = 0.5) +
       rotate() + theme_transparent()
   }
 

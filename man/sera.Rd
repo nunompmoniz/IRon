@@ -42,32 +42,32 @@ Value for the area under the relevance-squared error curve (SERA)
 Computes an approximation of the area under the curve described by squared error of predictions for a sequence of subsets with increasing relevance
 }
 \examples{
-\dontrun{
 library(IRon)
 library(rpart)
-library(ggplot2)
-library(scam)
 
-data(accel)
+if(requireNamespace("rpart")) {
 
-form <- acceleration ~ .
+   #' data(accel)
 
-ind <- sample(1:nrow(accel),0.75*nrow(accel))
+   form <- acceleration ~ .
 
-train <- accel[ind,]
-test <- accel[-ind,]
+   ind <- sample(1:nrow(accel),0.75*nrow(accel))
 
-ph <- phi.control(accel$acceleration)
+   train <- accel[ind,]
+   test <- accel[-ind,]
 
-m <- rpart::rpart(form, train)
-preds <- as.vector(predict(m,test))
+   ph <- phi.control(accel$acceleration)
 
-trues <- test$acceleration
-phi.trues <- phi(test$acceleration,ph)
+   m <- rpart::rpart(form, train)
+   preds <- as.vector(predict(m,test))
 
-sera(trues,preds,phi.trues)
-sera(trues,preds,phi.trues,pl=TRUE)
-sera(trues,preds,phi.trues,pl=TRUE, m.name="Regression Trees")
-sera(trues,preds,phi.trues,pl=TRUE, return.err=TRUE)
+   trues <- test$acceleration
+   phi.trues <- phi(test$acceleration,ph)
+
+   sera(trues,preds,phi.trues)
+   sera(trues,preds,phi.trues,pl=TRUE, m.name="Regression Trees")
+   sera(trues,preds,phi.trues,pl=TRUE, return.err=TRUE)
+
 }
+
 }

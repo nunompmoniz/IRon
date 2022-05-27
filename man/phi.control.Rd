@@ -39,7 +39,6 @@ A list with three slots with information concerning the relevance function
 This procedure enables the generation of a relevance function that performs a mapping between the values in a given target variable and a relevance value that is bounded by 0 (minimum relevance) and 1 (maximum relevance). This may be obtained automatically (based on the distribution of the target variable) or by the user defining the relevance values of a given set of target values - the remaining values will be interpolated.
 }
 \examples{
-\dontrun{
 library(IRon)
 
 data(accel)
@@ -49,10 +48,9 @@ ind <- sample(1:nrow(accel),0.75*nrow(accel))
 train <- accel[ind,]
 test <- accel[-ind,]
 
-ph <- phi.control(accel$acceleration); phiPlot(train$acceleration, ph)
-ph <- phi.control(accel$acceleration, extr.type="high"); phiPlot(train$acceleration, ph)
-ph <- phi.control(accel$acceleration, method="range",
-  control.pts=matrix(c(10,0,0,15,1,0),byrow=TRUE,ncol=3)); phiPlot(train$acceleration, ph)
-}
+ph <- phi.control(train$acceleration); phiPlot(test$acceleration, ph)
+ph <- phi.control(train$acceleration, extr.type="high"); phiPlot(test$acceleration, ph)
+ph <- phi.control(train$acceleration, method="range",
+  control.pts=matrix(c(10,0,0,15,1,0),byrow=TRUE,ncol=3)); phiPlot(test$acceleration, ph)
 
 }

@@ -21,35 +21,35 @@ eval.stats(formula, train, test, y_pred, phi.parms = NULL, cf = 1.5)
 }
 \value{
 A list with four slots for the results of standard and relevance-based evaluation metrics
-\item{overall}{Results for standard metrics MAE, MSE and RMSE, along with Pearson's Correlation, in addition to the results of the relevance-based MAE, MSE and RMSE for a given relevance thrshold (thr)}
-\item{mae_phi}{Results of relevance-based MAE for set of thresholds}
-\item{mse_phi}{Results of relevance-based MSE for set of thresholds}
-\item{rmse_phi}{Results of relevance-based RMSE for set of thresholds}
+\item{overall}{Results for standard metrics MAE, MSE and RMSE, along with Pearson's Correlation, bias, variance and the Squared Error Relevance Area metric.}
 }
 \description{
 Evaluation statistics including standard and non-standard evaluation metrics. Returns a structure of data containing the results of several evaluation metrics (both standard and some focused on the imbalanced regression problem).
 }
 \examples{
-\dontrun{
 library(IRon)
-library(earth)
 
-data(accel)
+if(requireNamespace("earth")) {
 
-form <- acceleration ~ .
+   data(accel)
 
-ind <- sample(1:nrow(accel),0.75*nrow(accel))
+   form <- acceleration ~ .
 
-train <- accel[ind,]
-test <- accel[-ind,]
+   ind <- sample(1:nrow(accel),0.75*nrow(accel))
 
-ph <- phi.control(accel$acceleration)
+   train <- accel[ind,]
+   test <- accel[-ind,]
 
-m <- earth::earth(form, train)
-preds <- as.vector(predict(m,test))
+   ph <- phi.control(accel$acceleration)
 
-eval.stats(form, train, test, preds)
-eval.stats(form, train, test, preds, ph)
-eval.stats(form, train, test, preds, ph, cf=3) # Focusing on extreme outliers
+   m <- earth::earth(form, train)
+   preds <- as.vector(predict(m,test))
+
+   eval.stats(form, train, test, preds)
+   eval.stats(form, train, test, preds, ph)
+   eval.stats(form, train, test, preds, ph, cf=3) # Focusing on extreme outliers
+
 }
+
+
 }

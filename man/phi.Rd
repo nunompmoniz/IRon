@@ -20,7 +20,6 @@ A vector with the relevance values of a given target variable
 The phi function retrieves the relevance value of the values in a target variable. It does so by resorting to the Piecewise Cubic Hermitate Interpolation Polynomial method for interpolating over a set of maximum and minimum relevance points. The notion of relevance is associated with rarity.Nonetheless, this notion may depend on the domain experts knowledge
 }
 \examples{
-\dontrun{
 library(IRon)
 data(accel)
 
@@ -33,5 +32,4 @@ ph <- phi.control(train$acceleration)
 phis <- phi(test$acceleration,phi.parms=ph)
 
 plot(test$acceleration,phis,xlab="Y",ylab="Relevance")
-}
 }

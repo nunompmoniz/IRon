@@ -17,29 +17,32 @@
 #' @return Squared error for for cases where the relevance of the true value is greater than t (SERA)
 #'
 #' @examples
-#' \dontrun{
 #' library(IRon)
 #' library(rpart)
 #'
-#' data(accel)
+#' if(requireNamespace("rpart")) {
 #'
-#' form <- acceleration ~ .
+#'    data(accel)
 #'
-#' ind <- sample(1:nrow(accel),0.75*nrow(accel))
+#'    form <- acceleration ~ .
 #'
-#' train <- accel[ind,]
-#' test <- accel[-ind,]
+#'    ind <- sample(1:nrow(accel),0.75*nrow(accel))
 #'
-#' ph <- phi.control(accel$acceleration)
+#'    train <- accel[ind,]
+#'    test <- accel[-ind,]
 #'
-#' m <- rpart::rpart(form, train)
-#' preds <- as.vector(predict(m,test))
+#'    ph <- phi.control(accel$acceleration)
 #'
-#' trues <- test$acceleration
-#' phi.trues <- phi(test$acceleration,ph)
+#'    m <- rpart::rpart(form, train)
+#'    preds <- as.vector(predict(m,test))
 #'
-#' ser(trues,preds,phi.trues)
+#'    trues <- test$acceleration
+#'    phi.trues <- phi(test$acceleration,ph)
+#'
+#'    ser(trues,preds,phi.trues)
+#'
 #' }
+#'
 ser <- function(trues, preds, phi.trues=NULL, ph=NULL, t=0) {
 
   if(is.null(phi.trues) && is.null(ph)) stop("You need to input either the parameter phi.trues or ph.")
@@ -72,36 +75,39 @@ ser <- function(trues, preds, phi.trues=NULL, ph=NULL, t=0) {
 #' @return Value for the area under the relevance-squared error curve (SERA)
 #'
 #' @examples
-#' \dontrun{
 #' library(IRon)
 #' library(rpart)
-#' library(ggplot2)
-#' library(scam)
 #'
-#' data(accel)
+#' if(requireNamespace("rpart")) {
 #'
-#' form <- acceleration ~ .
+#'    #' data(accel)
 #'
-#' ind <- sample(1:nrow(accel),0.75*nrow(accel))
+#'    form <- acceleration ~ .
 #'
-#' train <- accel[ind,]
-#' test <- accel[-ind,]
+#'    ind <- sample(1:nrow(accel),0.75*nrow(accel))
 #'
-#' ph <- phi.control(accel$acceleration)
+#'    train <- accel[ind,]
+#'    test <- accel[-ind,]
 #'
-#' m <- rpart::rpart(form, train)
-#' preds <- as.vector(predict(m,test))
+#'    ph <- phi.control(accel$acceleration)
 #'
-#' trues <- test$acceleration
-#' phi.trues <- phi(test$acceleration,ph)
+#'    m <- rpart::rpart(form, train)
+#'    preds <- as.vector(predict(m,test))
 #'
-#' sera(trues,preds,phi.trues)
-#' sera(trues,preds,phi.trues,pl=TRUE)
-#' sera(trues,preds,phi.trues,pl=TRUE, m.name="Regression Trees")
-#' sera(trues,preds,phi.trues,pl=TRUE, return.err=TRUE)
+#'    trues <- test$acceleration
+#'    phi.trues <- phi(test$acceleration,ph)
+#'
+#'    sera(trues,preds,phi.trues)
+#'    sera(trues,preds,phi.trues,pl=TRUE, m.name="Regression Trees")
+#'    sera(trues,preds,phi.trues,pl=TRUE, return.err=TRUE)
+#'
 #' }
+#'
 sera <- function(trues, preds, phi.trues=NULL, ph=NULL, pl=FALSE,
                  m.name="Model", step=0.001, return.err=FALSE, norm=FALSE) {
+
+  requireNamespace("scam", quietly=TRUE)
+  requireNamespace("ggplot2", quietly=TRUE)
 
   if(!is.data.frame(preds)) preds <- as.data.frame(preds)
 
@@ -138,7 +144,7 @@ sera <- function(trues, preds, phi.trues=NULL, ph=NULL, pl=FALSE,
       df_melt <- reshape::melt(df,id.vars="th")
       colnames(df_melt)[2] <- "Model"
 
-      print(ggplot2::ggplot(df_melt,aes(x=th,y=value,group=Model,color=Model)) +
+      print(ggplot2::ggplot(df_melt,aes(x=th,y=.data$value,group=.data$Model,color=.data$Model)) +
               ggplot2::geom_smooth(method="scam",formula=y ~ s(x, k = 30, bs = "mpd"),span=0.1,se=FALSE,fullrange=TRUE) +
               ggplot2::xlab(expression("Relevance"~phi(y))) + ylab("SER") +
               ggplot2::ggtitle("SERA") + ylim(c(0,max_y)) + ggplot2::geom_hline(yintercept=0,colour="black"))

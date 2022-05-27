@@ -17,23 +17,4 @@ Value for the relevance-weighted root mean squared error
 \description{
 Root Mean Squared Error
 }
-\examples{
-library(IRon)
-library(earth)
-
-data(accel)
-
-form <- acceleration ~ .
-
-ind <- sample(1:nrow(accel),0.75*nrow(accel))
-
-train <- accel[ind,]
-test <- accel[-ind,]
-
-m <- earth::earth(form, train)
-preds <- as.vector(predict(m,test))
-
-trues <- test$acceleration
-
-rmse(trues,preds)
-}
+\keyword{internal}

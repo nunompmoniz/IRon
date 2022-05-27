@@ -27,27 +27,30 @@ Obtains the squared error of predictions for a given subset of relevance
 Squared Error-Relevance Metric (SER)
 }
 \examples{
-\dontrun{
 library(IRon)
 library(rpart)
 
-data(accel)
+if(requireNamespace("rpart")) {
 
-form <- acceleration ~ .
+   data(accel)
 
-ind <- sample(1:nrow(accel),0.75*nrow(accel))
+   form <- acceleration ~ .
 
-train <- accel[ind,]
-test <- accel[-ind,]
+   ind <- sample(1:nrow(accel),0.75*nrow(accel))
 
-ph <- phi.control(accel$acceleration)
+   train <- accel[ind,]
+   test <- accel[-ind,]
 
-m <- rpart::rpart(form, train)
-preds <- as.vector(predict(m,test))
+   ph <- phi.control(accel$acceleration)
 
-trues <- test$acceleration
-phi.trues <- phi(test$acceleration,ph)
+   m <- rpart::rpart(form, train)
+   preds <- as.vector(predict(m,test))
 
-ser(trues,preds,phi.trues)
+   trues <- test$acceleration
+   phi.trues <- phi(test$acceleration,ph)
+
+   ser(trues,preds,phi.trues)
+
 }
+
 }
