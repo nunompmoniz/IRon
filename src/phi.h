@@ -46,19 +46,19 @@ static phi_fun *phiF;
 /* Phi Function */
 /* --------------------------------------------------------- */
 
-EXTERN void r2phi(Sint *n, double *y,
+EXTERN void r2phi(SEXP *n, double *y,
                   double *phiF_args,
                   double *y_phi);
 
 EXTERN void r2phi_init(double *phiF_args);
 
-EXTERN void r2phi_eval(Sint *n, double *y,
+EXTERN void r2phi_eval(SEXP *n, double *y,
                        double *y_phi);
 
 
-		       
-EXTERN void r2jphi_eval(Sint *n, double *y_phi, double *ypred_phi, double *p,
-			double *jphi);
+
+EXTERN void r2jphi_eval(SEXP *n, double *y_phi, double *ypred_phi, double *p,
+                        double *jphi);
 
 
 EXTERN phi_fun *phi_init(double *phiF_args);

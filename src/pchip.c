@@ -7,12 +7,12 @@
 /*
 
 
-*/
+ */
 /*
-** phi relevance function.
-**  - Cubic Hermite Spline
-** Rita P. Ribeiro
-*/
+ ** phi relevance function.
+ **  - Cubic Hermite Spline
+ ** Rita P. Ribeiro
+ */
 
 #include <stdio.h>
 #include <math.h>
@@ -23,12 +23,12 @@
 #include "pchip.h"
 
 /*
-** Memory defined with S_alloc is removed automatically
+ ** Memory defined with S_alloc is removed automatically
  */
 #define ALLOC(a,b)  S_alloc(a,b)
 
 hermiteSpl *pchip_set(int n,
-		      double *x, double *y, double *m) {
+                      double *x, double *y, double *m) {
 
 
   int i;
@@ -75,7 +75,7 @@ hermiteSpl *pchip_set(int n,
 }
 
 /*
-Slopes for shape-preserving Hermite cubic polynomials
+ Slopes for shape-preserving Hermite cubic polynomials
  */
 
 
@@ -103,34 +103,34 @@ double *pchip_slope_monoFC(int n, double *m, double *delta) {
     } else {
 
       double
-	alpha = m[k ] / Sk,
-	beta  = m[k1] / Sk, a2b3, ab23;
+      alpha = m[k ] / Sk,
+        beta  = m[k1] / Sk, a2b3, ab23;
 
       if(fabs(m[k]) !=0 && alpha < 0) {
-	m[k] = -m[k];
-	alpha = m[k] / Sk;
+        m[k] = -m[k];
+        alpha = m[k] / Sk;
       }
 
       if(fabs(m[k1]) !=0 && beta < 0) {
-	m[k1] = -m[k1];
-	beta = m[k1] / Sk;
+        m[k1] = -m[k1];
+        beta = m[k1] / Sk;
       }
 
       a2b3 = 2*alpha + beta - 3;
       ab23 = alpha + 2*beta - 3;
 
       if(a2b3 > 0 && ab23 > 0 &&
-	 alpha * (a2b3 + ab23) < a2b3*a2b3) {
-	/* we are outside the monotonocity region ==> fix slopes */
-	double tauS = 3*Sk / sqrt(alpha*alpha + beta*beta);
-	m[k ] = tauS * alpha;
-	m[k1] = tauS * beta;
+         alpha * (a2b3 + ab23) < a2b3*a2b3) {
+        /* we are outside the monotonocity region ==> fix slopes */
+        double tauS = 3*Sk / sqrt(alpha*alpha + beta*beta);
+        m[k ] = tauS * alpha;
+        m[k1] = tauS * beta;
 
       }
     }
   } /* end for */
 
-  return m;
+        return m;
 }
 
 
@@ -139,14 +139,14 @@ double *pchip_slope_monoFC(int n, double *m, double *delta) {
 // Check for linear extrapolation
 // use cubic Hermite polynomials, even for extrapolation
 void  pchip_val(hermiteSpl *H, double xval, int extrapol,
-		double *yval) {
+                double *yval) {
 
   int i = 1, rightmost_closed = 0, all_inside = 0, mfl = 0;
   double s;
 
   i = findInterval(H->x,H->npts,
-		   xval,
-		   rightmost_closed,all_inside,i,&mfl);
+                   xval,
+                   rightmost_closed,all_inside,i,&mfl);
 
 
   // if extrapol is linear
@@ -164,7 +164,7 @@ void  pchip_val(hermiteSpl *H, double xval, int extrapol,
 
   s = (xval - H->x[i]);
   *yval = H->a[i] + s * (H->b[i] +
-		     s * (H->c[i] +
-			  s * H->d[i]));
+    s * (H->c[i] +
+    s * H->d[i]));
 
 }

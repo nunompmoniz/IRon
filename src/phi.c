@@ -1,9 +1,9 @@
 /* phi.c May 2010 */
 /*
-** phi relevance related functions.
-**
-** Rita P. Ribeiro
-*/
+ ** phi relevance related functions.
+ **
+ ** Rita P. Ribeiro
+ */
 
 #include <R.h>
 #include <Rinternals.h>
@@ -15,9 +15,9 @@
 // new_phi
 // To be called directly from R
 /* ============================================================ */
-void r2phi(Sint *n, double *y,
-	   double *phiF_args,
-	   double *y_phi) {
+void r2phi(SEXP *n, double *y,
+           double *phiF_args,
+           double *y_phi) {
 
   r2phi_init(phiF_args);
 
@@ -61,8 +61,8 @@ void r2phi_init(double *phiF_args) {
 // eval_phi
 // To be called directly from R
 /* ============================================================ */
-void r2phi_eval(Sint *n, double *y,
-		double *y_phi) {
+void r2phi_eval(SEXP *n, double *y,
+                double *y_phi) {
 
   int i;
   phi_out y_phiF;
@@ -77,16 +77,16 @@ void r2phi_eval(Sint *n, double *y,
 
 
 /*
-  ----------------------------------------------------------- 
-  jointPhi
-  -----------------------------------------------------------
-*/  
-void r2jphi_eval(Sint *n, double *y_phi, double *ypred_phi, 
-		 double *p, double *jphi) {
-  
+ -----------------------------------------------------------
+ jointPhi
+ -----------------------------------------------------------
+ */
+void r2jphi_eval(SEXP *n, double *y_phi, double *ypred_phi,
+                 double *p, double *jphi) {
+
   int i;
 
-  for(i = 0; i< (int) *n; i++) 
+  for(i = 0; i< (int) *n; i++)
     jphi[i] = jphi_value(y_phi[i], ypred_phi[i], *p);
 
 }
@@ -118,10 +118,10 @@ hermiteSpl *phiSpl_init(double *phiF_args) {
   h = pchip_set(n,x,y,m);
 
   /* cannot free them!
-  if (x !=NULL) {free(x); x = NULL;}
-  if (y !=NULL) {free(y); y = NULL;}
-  if (m !=NULL) {free(m); m = NULL;}
-  */
+   if (x !=NULL) {free(x); x = NULL;}
+   if (y !=NULL) {free(y); y = NULL;}
+   if (m !=NULL) {free(m); m = NULL;}
+   */
 
   return h;
 }
@@ -136,17 +136,17 @@ phi_out phiSpl_value(double y, phi_fun *phiF) {
   phi_out y_phiF;
 
   pchip_val(phiF->H, y, extrap,
-	    &y_phiF.y_phi);
+            &y_phiF.y_phi);
 
 
   return y_phiF;
 }
 
 /*
-  -----------------------------------------------------------
-  joint phi
-  -----------------------------------------------------------
-*/
+ -----------------------------------------------------------
+ joint phi
+ -----------------------------------------------------------
+ */
 double jphi_value(double y_phi, double ypred_phi, double p) {
 
   double jphi;

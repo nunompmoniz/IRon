@@ -1,10 +1,10 @@
 /**
 
-** The utility realted structures and functions prototypes.
-**   This helps the ansi compiler do tight checking.
-Rita P. Ribeiro
+ ** The utility realted structures and functions prototypes.
+ **   This helps the ansi compiler do tight checking.
+ Rita P. Ribeiro
 
-**/
+ **/
 
 //#include "pchip.h"
 #include "phi.h"
@@ -34,7 +34,7 @@ typedef struct util_fun {
 static phi_bumps *bumpI;
 static util_fun *utilF;
 
-EXTERN void r2util(Sint *n,
+EXTERN void r2util(SEXP *n,
                    double *y,  double *ypred,
                    double *phiF_args,
                    double *loss_args,
@@ -45,7 +45,7 @@ EXTERN void r2util_init(double *phiF_args,
                         double *loss_args,
                         double *utilF_args);
 
-EXTERN void r2util_eval(Sint *n,
+EXTERN void r2util_eval(SEXP *n,
                         double *y,  double *ypred,
                         double *u);
 

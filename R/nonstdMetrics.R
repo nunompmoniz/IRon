@@ -70,6 +70,8 @@ ser <- function(trues, preds, phi.trues=NULL, ph=NULL, t=0) {
 #' @param return.err Boolean to indicate if the errors at each subset of increasing relevance should be returned. Default is FALSE
 #' @param norm Normalize the SERA values for internal optimisation only (TRUE/FALSE)
 #'
+#' @importFrom scam scam
+#'
 #' @export
 #'
 #' @return Value for the area under the relevance-squared error curve (SERA)

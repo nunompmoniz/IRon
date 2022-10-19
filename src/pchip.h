@@ -1,12 +1,12 @@
 
 /**
 
-** The piecewise cubic Hermite interpolant polynom functions **
+ ** The piecewise cubic Hermite interpolant polynom functions **
 
-Rita P. Ribeiro
+ Rita P. Ribeiro
 
-August 2010
-**/
+ August 2010
+ **/
 
 
 #ifndef FLOAT
@@ -21,10 +21,10 @@ August 2010
 
 /*
 
-s = (x - xk)
+ s = (x - xk)
 
-H(s) = a +  bs + cs^2 + ds^3
-H'(s) = b + 2cs + 3ds^2
+ H(s) = a +  bs + cs^2 + ds^3
+ H'(s) = b + 2cs + 3ds^2
  */
 
 typedef struct {
@@ -38,10 +38,10 @@ typedef struct {
 
 
 hermiteSpl *pchip_set(int n,
-		     double *x, double *y, double *m);
+                      double *x, double *y, double *m);
 
 double *pchip_slope_monoFC(int n, double *m, double *delta);
 
 void pchip_val(hermiteSpl *H,
-	       double xval, int extrapol,
-	       double *yval);
+               double xval, int extrapol,
+               double *yval);

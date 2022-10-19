@@ -1,15 +1,18 @@
 #include <stdlib.h> // for NULL
 #include <R_ext/Rdynload.h>
+#include <Rinternals.h>
 
 /* FIXME:
-   Check these declarations against the C/Fortran source code.
-*/
+ Check these declarations against the C/Fortran source code.
+ */
 
 /* .C calls */
-extern void r2phi(void *, void *, void *, void *, void *, void *);
+//extern void r2phi(void *, void *, void *, void *, void *, void *);
+// extern void r2phi(void *, void *, void *, void *, void *);
+extern void r2phi(SEXP *, double *, double *,double *);
 
 static const R_CMethodDef CEntries[] = {
-    {"r2phi", (DL_FUNC) &r2phi, 6},
+    {"r2phi", (DL_FUNC) &r2phi, 4},
     {NULL, NULL, 0}
 };
 

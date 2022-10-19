@@ -4,20 +4,18 @@
 \alias{phi}
 \title{Obtain the relevance of data points}
 \usage{
-phi(y, phi.parms = NULL, only.phi = TRUE)
+phi(y, phi.parms = NULL)
 }
 \arguments{
 \item{y}{The target variable of a given data set}
 
 \item{phi.parms}{The relevance function providing the data points where the pairs of values-relevance are known}
-
-\item{only.phi}{Boolean (default TRUE) to return either solely the relevance values or the full data structure with the first and second derivative the interpolated values}
 }
 \value{
 A vector with the relevance values of a given target variable
 }
 \description{
-The phi function retrieves the relevance value of the values in a target variable. It does so by resorting to the Piecewise Cubic Hermitate Interpolation Polynomial method for interpolating over a set of maximum and minimum relevance points. The notion of relevance is associated with rarity.Nonetheless, this notion may depend on the domain experts knowledge
+The phi function retrieves the relevance value of the values in a target variable. It does so by resorting to the Piecewise Cubic Hermite Interpolation Polynomial method for interpolating over a set of maximum and minimum relevance points. The notion of relevance is associated with rarity.Nonetheless, this notion may depend on the domain experts knowledge
 }
 \examples{
 library(IRon)

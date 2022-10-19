@@ -1,7 +1,7 @@
 Package: IRon
 Type: Package
 Title: Solving Imbalanced Regression Tasks
-Version: 0.1.0
+Version: 0.1.2
 Authors@R: c(person("Nuno", "Moniz", email = "nmmoniz@inesctec.pt",
                                         role = c("cre","aut")),
            person("Rita", "P. Ribeiro", email = "rpribeiro@dcc.fc.up.pt",
@@ -28,7 +28,7 @@ Encoding: UTF-8
 LazyData: true
 LinkingTo: Rcpp
 Depends: R (>= 2.10)
-Imports: Rcpp, stats, ggpubr, gridExtra, ggplot2, robustbase, plot3D, fields, scam
+Imports: Rcpp, stats, ggpubr, gridExtra, ggplot2, robustbase, scam
 Suggests: rpart, e1071, earth, randomForest, mgcv, reshape
 RoxygenNote: 7.1.1
 NeedsCompilation: yes
