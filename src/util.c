@@ -99,8 +99,8 @@ void util_core(int n, double *y,  double *ypred,
 
   for(i = 0; i < n; i++) {
 
-    y_phiF[i] = (*phiF->phi_value)(y[i], phiF);
-    ypred_phiF[i] = (*phiF->phi_value)(ypred[i], phiF);
+    y_phiF[i] = phiF->phiSpl_value(y[i], phiF->H);
+    ypred_phiF[i] = phiF->phiSpl_value(y[i], phiF->H);
 
     u[i] =
       util_value(y[i], ypred[i], y_phiF[i], ypred_phiF[i],

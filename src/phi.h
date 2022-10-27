@@ -30,7 +30,7 @@ typedef struct phi_out {
 typedef struct {
   phimethod method;
   hermiteSpl *H;
-  phi_out  (*phi_value)();
+  phi_out (*phiSpl_value)(double, hermiteSpl *);
 } phi_fun;
 
 typedef struct {
@@ -67,4 +67,4 @@ EXTERN double jphi_value(double y_phi, double ypred_phi, double p);
 
 EXTERN hermiteSpl *phiSpl_init(double *phiF_args);
 
-EXTERN phi_out phiSpl_value(double y, phi_fun *phiF);
+EXTERN phi_out phiSpl_value(double y, hermiteSpl *H);

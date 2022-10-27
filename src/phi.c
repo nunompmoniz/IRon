@@ -41,7 +41,7 @@ phi_fun *phi_init(double *phiF_args) {
 
   phiF->H = phiSpl_init(phiF_args);
 
-  phiF->phi_value = phiSpl_value;
+  phiF->phiSpl_value = phiSpl_value;
 
   return phiF;
 }
@@ -68,7 +68,7 @@ void r2phi_eval(SEXP *n, double *y,
   phi_out y_phiF;
 
   for(i = 0; i < (int) *n; i++) {
-    y_phiF = (*phiF->phi_value)(y[i], phiF);
+    y_phiF = phiF->phiSpl_value(y[i], phiF->H);
     y_phi[i] = y_phiF.y_phi;
   }
 
@@ -130,12 +130,12 @@ hermiteSpl *phiSpl_init(double *phiF_args) {
 // phi_fun_value
 //
 /* ============================================================ */
-phi_out phiSpl_value(double y, phi_fun *phiF) {
+phi_out phiSpl_value(double y, hermiteSpl *H) {
 
   int extrap = 0;//linear
   phi_out y_phiF;
 
-  pchip_val(phiF->H, y, extrap,
+  pchip_val(H, y, extrap,
             &y_phiF.y_phi);
 
 
