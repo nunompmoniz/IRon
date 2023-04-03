@@ -20,7 +20,7 @@
 #define EXTERN extern
 #endif
 
-typedef enum {false, true} bool;
+// typedef enum {false, true} bool;
 
 
 typedef struct util_fun {
